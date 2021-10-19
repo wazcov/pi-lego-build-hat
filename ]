@@ -1,0 +1,42 @@
+from signal import pause
+from buildhat import Motor, MotorPair
+import time
+import threading
+
+def handle_motor(speed, pos, apos):
+    print("Motor", speed, pos, apos)
+    
+def run_radar(radar):
+    radar.start()
+    print("Radar")
+    time.sleep(3)
+    radar.stop()
+
+def run_app():
+    print("Starting...")
+    radar = Motor('A')
+#     motorb = Motor('B')
+    wheels = MotorPair('C', 'D')
+    rwheel = Motor('C')
+    lwheel = Motor('D')
+
+    #radar.when_rotated = handle_motor
+    radar.set_default_speed(25)
+    lwheel.set_default_speed(50)
+    rwheel.set_default_speed(50)
+    wheels.set_default_speed(50)
+
+    thread = threading.Thread(target=run_radar, name="Radar", args=[radar])
+    thread.start()
+    rwheel.run_for_rotations(1)
+    time.sleep(2)
+    lwheel.run_for_rotations(-1)
+    time.sleep(2)
+    #wheels.run_for_rotations(-1)
+
+try:
+    run_app()
+        
+except Exception as e:
+    print(e)
+
