@@ -1,6 +1,8 @@
-buildhat==0.5.4
+buildhat==0.5.7
 colorzero==2.0
 gpiozero==1.6.2
+numpy==1.21.5
 picamera==1.13
 pkg-resources==0.0.0
 pyserial==3.5
+pyshine==0.0.9
